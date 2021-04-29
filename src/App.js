@@ -1,4 +1,10 @@
 import { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import './App.css';
 
 
@@ -26,6 +32,65 @@ function DogComponent(props) {
 }
 
 function App() {
+  /* const [cachedDogs, setData] = useState([]);
+  const getData=()=>{
+    fetch('https://api.jsonbin.io/b/6087d9c3f6655022c46d0b41')
+      .then(response => response.json())
+      .then(fetchedDogs => setData(fetchedDogs));
+  }
+  useEffect(()=>{
+    getData()
+  },[]);
+
+  return (
+    /* <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div> 
+    <div>
+      {cachedDogs.map(dog =>
+        <DogComponent Dog = {dog}></DogComponent>
+      )}
+    </div>
+
+  ); */
+
+  return(
+    <Router>
+      <div>
+      <Switch>
+        <Route path="/clients">
+          <Client></Client>
+        </Route>
+        <Route path="/raw">
+          <RawData></RawData>
+        </Route>
+        <Route path="/">
+          <Welcome></Welcome>
+        </Route>
+      </Switch>
+      </div>
+    </Router>
+  );
+}
+
+function Welcome() {
+  return <h1>Welcome!</h1>
+}
+
+function Client() {
   const [cachedDogs, setData] = useState([]);
   const getData=()=>{
     fetch('https://api.jsonbin.io/b/6087d9c3f6655022c46d0b41')
@@ -60,6 +125,10 @@ function App() {
     </div>
 
   );
+}
+
+function RawData() {
+  return <h1>Raw</h1>
 }
 
 export default App;
