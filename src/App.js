@@ -32,53 +32,19 @@ function DogComponent(props) {
 }
 
 function App() {
-  /* const [cachedDogs, setData] = useState([]);
-  const getData=()=>{
-    fetch('https://api.jsonbin.io/b/6087d9c3f6655022c46d0b41')
-      .then(response => response.json())
-      .then(fetchedDogs => setData(fetchedDogs));
-  }
-  useEffect(()=>{
-    getData()
-  },[]);
-
-  return (
-    /* <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div> 
-    <div>
-      {cachedDogs.map(dog =>
-        <DogComponent Dog = {dog}></DogComponent>
-      )}
-    </div>
-
-  ); */
 
   return(
     <Router>
       <div>
       <Switch>
         <Route path="/clients">
-          <Client></Client>
+          <ClientsComponent></ClientsComponent>
         </Route>
         <Route path="/raw">
-          <RawData></RawData>
+          <RawDataComponent></RawDataComponent>
         </Route>
         <Route path="/">
-          <Welcome></Welcome>
+          <WelcomeComponent></WelcomeComponent>
         </Route>
       </Switch>
       </div>
@@ -86,11 +52,19 @@ function App() {
   );
 }
 
-function Welcome() {
-  return <h1>Welcome!</h1>
+function WelcomeComponent() {
+  return (
+    <div>
+      <h1>Welcome!</h1>
+      <Link to="/clients">Go to clients</Link>
+      <br></br>
+      <Link to="/raw">Go to raw</Link>
+    </div>
+    )
+
 }
 
-function Client() {
+function ClientsComponent() {
   const [cachedDogs, setData] = useState([]);
   const getData=()=>{
     fetch('https://api.jsonbin.io/b/6087d9c3f6655022c46d0b41')
@@ -127,8 +101,19 @@ function Client() {
   );
 }
 
-function RawData() {
-  return <h1>Raw</h1>
+function RawDataComponent() {
+  const [cachedDogs, setData] = useState([]);
+  const getData=()=>{
+    fetch('https://api.jsonbin.io/b/6087d9c3f6655022c46d0b41')
+      .then(response => response.json())
+      .then(fetchedDogs => setData(fetchedDogs));
+  }
+  useEffect(()=>{
+    getData()
+  },[]);
+  return <span>{
+    JSON.stringify(cachedDogs)
+    }</span>
 }
 
 export default App;
