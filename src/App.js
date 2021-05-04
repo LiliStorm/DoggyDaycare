@@ -8,8 +8,13 @@ import {
 import './App.css';
 
 
+function capitalizeFirstLetter(value){
+  return value[0].toUpperCase() + value.slice(1);
+}
+
 function DogComponent(props) {
   const dog = props.Dog;
+  const owner = dog.owner;
   const divstyle = {
     border: "solid",
     borderColor: "lightgrey",
@@ -26,7 +31,9 @@ function DogComponent(props) {
   return (
     <div style={divstyle}>
       <h2><img style={picstyle} src={dog.img} alt=""/> {dog.name}</h2>
-      <p>{dog.sex} , {dog.age} years old</p>
+      <p>{capitalizeFirstLetter(dog.sex)}, {capitalizeFirstLetter(dog.breed)}, {dog.age} years old</p>
+      <p>Chip number: {dog.chipNumber}</p>
+      <p><b>Owner:</b> {owner.name} {owner.lastName}, {owner.phoneNumber}</p>
     </div>
   );
 }
@@ -76,22 +83,6 @@ function ClientsComponent() {
   },[]);
 
   return (
-    /* <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div> */
     <div>
       {cachedDogs.map(dog =>
         <DogComponent Dog = {dog}></DogComponent>
